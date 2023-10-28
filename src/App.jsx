@@ -1,4 +1,10 @@
+// TODO:
+// - delete button
+// - edit button
+// - fix text sizes cuz its overlapping the buttons
+
 import Note from "./components/Note";
+import AddModal from "./components/AddModal";
 import { useState, useEffect } from "react";
 import {
    Button,
@@ -61,6 +67,16 @@ function App() {
 
    return (
       <div className="w-screen h-screen md:flex flex-col overflow-x-hidden">
+         <AddModal
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
+            handleSubmit={handleSubmit}
+            title={title}
+            setTitle={setTitle}
+            description={description}
+            setDescription={setDescription}
+         />
          <h1 className="text-gray-900 font-bold title-font text-3xl mt-4 text-center underline decoration-yellow-500">
             Taking-note App
          </h1>
@@ -88,6 +104,7 @@ function App() {
                            placeholder="Title"
                            type="text"
                            name="title"
+                           id="title"
                         />
                         <Textarea
                            onChange={(e) => setDescription(e.target.value)}
@@ -95,6 +112,7 @@ function App() {
                            mt={4}
                            placeholder="Description"
                            name="description"
+                           id="description"
                         />
                      </FormControl>
                   </ModalBody>
