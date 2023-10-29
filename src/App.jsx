@@ -34,11 +34,11 @@ function App() {
 
    const { isOpen, onOpen, onClose } = useDisclosure();
    const [title, setTitle] = useState("");
-   const [description, setDescription] = useState("");
+   const [body, setBody] = useState("");
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const note = { title, description };
+      const note = { title, body };
 
       await fetch("https://jsonplaceholder.typicode.com/posts", {
          method: "POST",
@@ -54,7 +54,7 @@ function App() {
          });
 
       setTitle("");
-      setDescription("");
+      setBody("");
       onClose();
    };
 
@@ -74,8 +74,8 @@ function App() {
             handleSubmit={handleSubmit}
             title={title}
             setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
+            body={body}
+            setBody={setBody}
          />
          <h1 className="text-gray-900 font-bold title-font text-3xl mt-4 text-center underline decoration-yellow-500">
             Taking-note App
@@ -87,7 +87,7 @@ function App() {
          </div>
          <ul>
             {notes.map((note, index) => (
-               <Note key={index} id={index} note={note} notes={notes} setNotes={setNotes} />
+               <Note key={index} id={note.id} note={note} notes={notes} setNotes={setNotes}/>
             ))}
          </ul>
          <Modal isOpen={isOpen} onClose={onClose}>
@@ -107,12 +107,12 @@ function App() {
                            id="title"
                         />
                         <Textarea
-                           onChange={(e) => setDescription(e.target.value)}
-                           value={description}
+                           onChange={(e) => setBody(e.target.value)}
+                           value={body}
                            mt={4}
                            placeholder="Description"
-                           name="description"
-                           id="description"
+                           name="body"
+                           id="body"
                         />
                      </FormControl>
                   </ModalBody>

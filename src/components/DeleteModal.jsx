@@ -10,7 +10,7 @@ import {
    Button,
 } from "@chakra-ui/react";
 
-const DeleteModal = ({ isOpen, onClose, onDelete }) => {
+const DeleteModal = ({ id, isOpen, onClose, onDelete }) => {
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <ModalOverlay />

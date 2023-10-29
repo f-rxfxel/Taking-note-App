@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import {
    Modal,
    ModalOverlay,
@@ -14,11 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 
-const EditModal = ({ id, note, isOpen, onClose, onEdit }) => {
-
-    const [editTitle, setEditTitle] = useState(note.title)
-    const [editDescription, setEditDescription] = useState(note.description)
-    {console.log(id)}
+const EditModal = ({
+   id,
+   note,
+   notes,
+   setNotes,
+   isOpen,
+   onClose,
+   onEdit,
+   setEditModalOpen,
+}) => {
+   const [editTitle, setEditTitle] = useState(note.title);
+   const [editBody, setEditBody] = useState(note.body);
 
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -38,12 +45,12 @@ const EditModal = ({ id, note, isOpen, onClose, onEdit }) => {
                         id="title"
                      />
                      <Textarea
-                        onChange={(e) => setEditDescription(e.target.value)}
-                        value={editDescription}
+                        onChange={(e) => setEditBody(e.target.value)}
+                        value={editBody}
                         mt={4}
                         placeholder="Description"
-                        name="description"
-                        id="description"
+                        name="body"
+                        id="body"
                      />
                   </FormControl>
                </ModalBody>
@@ -56,7 +63,41 @@ const EditModal = ({ id, note, isOpen, onClose, onEdit }) => {
                      leftIcon={<CheckIcon />}
                      colorScheme="yellow"
                      ml={3}
-                     onClick={(id, editTitle, editDescription) => onEdit(id, editTitle, editDescription)}
+                     // onClick={onEdit(editTitle, editDescription)}
+                     onClick={() => {
+                        fetch(
+                           `https://jsonplaceholder.typicode.com/posts/${id}`,
+                           {
+                              method: "PUT",
+                              body: JSON.stringify({
+                                 title: editTitle,
+                                 body: editBody,
+                              }),
+                              headers: {
+                                 "Content-type":
+                                    "application/json; charset=UTF-8",
+                              },
+                           }
+                        )
+                           .then((response) => {
+                              console.log("alterado - " + response.status);
+                              const updatedNote = {
+                                 id: id,
+                                 title: editTitle,
+                                 body: editBody,
+                              };
+                              const originalIndex = notes.findIndex(
+                                 (note) => note.id === id
+                              );
+                              const updatedNotes = [...notes];
+                              updatedNotes[originalIndex] = updatedNote;
+                              setNotes(updatedNotes);
+                              setEditModalOpen(false);
+                           })
+                           .catch((err) => {
+                              console.log(err);
+                           });
+                     }}
                   >
                      Confirm
                   </Button>

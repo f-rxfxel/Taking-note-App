@@ -21,8 +21,8 @@ const AddModal = ({
    handleSubmit,
    title,
    setTitle,
-   description,
-   setDescription,
+   body,
+   setBody,
 }) => {
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -42,12 +42,12 @@ const AddModal = ({
                         id="title"
                      />
                      <Textarea
-                        onChange={(e) => setDescription(e.target.value)}
-                        value={description}
+                        onChange={(e) => setBody(e.target.value)}
+                        value={body}
                         mt={4}
                         placeholder="Description"
-                        name="description"
-                        id="description"
+                        name="body"
+                        id="body"
                      />
                   </FormControl>
                </ModalBody>
