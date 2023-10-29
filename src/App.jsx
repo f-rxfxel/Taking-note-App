@@ -87,7 +87,7 @@ function App() {
          </div>
          <ul>
             {notes.map((note, index) => (
-               <Note key={index} note={note} />
+               <Note key={index} id={index} note={note} notes={notes} setNotes={setNotes} />
             ))}
          </ul>
          <Modal isOpen={isOpen} onClose={onClose}>

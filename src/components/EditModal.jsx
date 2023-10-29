@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 import {
    Modal,
    ModalOverlay,
@@ -7,43 +7,39 @@ import {
    ModalFooter,
    ModalBody,
    ModalCloseButton,
+   Button,
    FormControl,
    Input,
    Textarea,
-   Button,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { CheckIcon } from "@chakra-ui/icons";
 
-const AddModal = ({
-   isOpen,
-   onOpen,
-   onClose,
-   handleSubmit,
-   title,
-   setTitle,
-   description,
-   setDescription,
-}) => {
+const EditModal = ({ id, note, isOpen, onClose, onEdit }) => {
+
+    const [editTitle, setEditTitle] = useState(note.title)
+    const [editDescription, setEditDescription] = useState(note.description)
+    {console.log(id)}
+
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <ModalOverlay />
          <ModalContent>
-            <form onSubmit={handleSubmit}>
-               <ModalHeader>Create note</ModalHeader>
+            <form>
+               <ModalHeader>Edit note</ModalHeader>
                <ModalCloseButton />
                <ModalBody>
                   <FormControl>
                      <Input
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        value={editTitle}
                         placeholder="Title"
                         type="text"
                         name="title"
                         id="title"
                      />
                      <Textarea
-                        onChange={(e) => setDescription(e.target.value)}
-                        value={description}
+                        onChange={(e) => setEditDescription(e.target.value)}
+                        value={editDescription}
                         mt={4}
                         placeholder="Description"
                         name="description"
@@ -57,12 +53,12 @@ const AddModal = ({
                      Cancel
                   </Button>
                   <Button
-                     leftIcon={<AddIcon />}
+                     leftIcon={<CheckIcon />}
                      colorScheme="yellow"
                      ml={3}
-                     type="submit"
+                     onClick={(id, editTitle, editDescription) => onEdit(id, editTitle, editDescription)}
                   >
-                     Add
+                     Confirm
                   </Button>
                </ModalFooter>
             </form>
@@ -71,4 +67,4 @@ const AddModal = ({
    );
 };
 
-export default AddModal;
+export default EditModal;
