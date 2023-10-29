@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
    Modal,
    ModalOverlay,
@@ -24,6 +24,7 @@ const AddModal = ({
    body,
    setBody,
 }) => {
+   const [isLoading, setIsLoading] = useState(false);
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <ModalOverlay />
@@ -61,6 +62,9 @@ const AddModal = ({
                      colorScheme="yellow"
                      ml={3}
                      type="submit"
+                     //nao
+                     isLoading={isLoading}
+                     loadingText="Adding..."
                   >
                      Add
                   </Button>

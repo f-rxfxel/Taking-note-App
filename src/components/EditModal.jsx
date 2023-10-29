@@ -26,6 +26,7 @@ const EditModal = ({
 }) => {
    const [editTitle, setEditTitle] = useState(note.title);
    const [editBody, setEditBody] = useState(note.body);
+   const [isLoading, setIsLoading] = useState(false);
 
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -63,8 +64,11 @@ const EditModal = ({
                      leftIcon={<CheckIcon />}
                      colorScheme="yellow"
                      ml={3}
+                     isLoading={isLoading}
+                     loadingText="Confirming..."
                      // onClick={onEdit(editTitle, editDescription)}
                      onClick={() => {
+                        setIsLoading(true);
                         fetch(
                            `https://jsonplaceholder.typicode.com/posts/${id}`,
                            {
@@ -93,9 +97,11 @@ const EditModal = ({
                               updatedNotes[originalIndex] = updatedNote;
                               setNotes(updatedNotes);
                               setEditModalOpen(false);
+                              setIsLoading(false);
                            })
                            .catch((err) => {
                               console.log(err);
+                              setIsLoading(false);
                            });
                      }}
                   >

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import {
    Modal,
    ModalOverlay,
@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 
 const DeleteModal = ({ id, isOpen, onClose, onDelete }) => {
+   const [isLoading, setIsLoading] = useState(false);
+
    return (
       <Modal isOpen={isOpen} onClose={onClose}>
          <ModalOverlay />
@@ -22,7 +24,17 @@ const DeleteModal = ({ id, isOpen, onClose, onDelete }) => {
                <Button variant="ghost" onClick={onClose}>
                   Cancel
                </Button>
-               <Button ml={3} colorScheme="red" onClick={onDelete}>
+               <Button
+                  ml={3}
+                  colorScheme="red"
+                  isLoading={isLoading}
+                  loadingText="Deleting..."
+                  onClick={() => {
+                     setIsLoading(true);
+                     onDelete();
+                     setIsLoading(false);
+                  }}
+               >
                   Delete
                </Button>
             </ModalFooter>

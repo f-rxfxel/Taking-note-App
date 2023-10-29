@@ -1,8 +1,3 @@
-// TODO:
-// - delete button
-// - edit button
-// - fix text sizes cuz its overlapping the buttons
-
 import Note from "./components/Note";
 import AddModal from "./components/AddModal";
 import { useState, useEffect } from "react";
@@ -81,13 +76,24 @@ function App() {
             Taking-note App
          </h1>
          <div>
-            <Button onClick={onOpen} size={buttonSize} className="m-6">
+            <Button
+               colorScheme="gray"
+               onClick={onOpen}
+               size={buttonSize}
+               className="m-6"
+            >
                New note
             </Button>
          </div>
          <ul>
             {notes.map((note, index) => (
-               <Note key={index} id={note.id} note={note} notes={notes} setNotes={setNotes}/>
+               <Note
+                  key={index}
+                  id={note.id}
+                  note={note}
+                  notes={notes}
+                  setNotes={setNotes}
+               />
             ))}
          </ul>
          <Modal isOpen={isOpen} onClose={onClose}>

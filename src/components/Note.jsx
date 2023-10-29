@@ -5,7 +5,6 @@ import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 
 const Note = ({ id, note, notes, setNotes }) => {
-   
    const iconSize = useBreakpointValue({
       base: "20px",
       sm: "20px",
@@ -28,7 +27,6 @@ const Note = ({ id, note, notes, setNotes }) => {
          method: "DELETE",
       })
          .then((response) => {
-            // note é excluído, mas o dom não renderiza
             console.log("excluído - " + response.status);
             const updatedNotes = notes.filter((note) => note.id !== id);
             setNotes(updatedNotes);
@@ -68,7 +66,7 @@ const Note = ({ id, note, notes, setNotes }) => {
       <li>
          <div className="flex flex-col">
             <div className="h-1 bg-gray-200 rounded overflow-hidden">
-               <div className="w-24 h-full bg-yellow-500"></div>
+               <div className="w-24 h-full bg-[#ECC94B]"></div>
             </div>
             <div className="flex flex-wrap sm:flex-row flex-col pt-2 pb-6 mb-4 xl:ml-16">
                <div className="flex justify-end xl:justify-normal gap-6 mx-6 my-3 xl:flex-col">
